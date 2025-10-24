@@ -19,12 +19,21 @@ services:
     container_name: dev-pgadmin
     env_file:
       - .env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+    user: root
+    entrypoint: ["/bin/sh", "/generate_config.sh"]
     ports:
       - "5050:80"
     depends_on:
       - pg_db
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin/generate_config.sh:/generate_config.sh
+    command: ["/entrypoint.sh"]
 
 volumes:
   pgdata:
