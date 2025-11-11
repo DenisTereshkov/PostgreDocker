@@ -57,3 +57,40 @@ python app/test_connection.py
 - **Веб-интерфейсы** - pgAdmin/phpMyAdmin для удобного управления
 - **Мониторинг** - Grafana дашборды для просмотра метрик БД
 - **Расширенные тесты** - проверка CRUD операций и производительности
+
+
+## Использование CLI утилиты
+
+### Базовые команды
+
+```bash
+# Запустить базу данных
+python scripts/cli.py start postgres
+
+# Остановить базу данных  
+python scripts/cli.py stop postgres
+
+# Показать статус всех баз данных
+python scripts/cli.py status
+
+# Показать справку
+python scripts/cli.py --help
+```
+
+### Пример работы
+
+```bash
+$ python scripts/cli.py start postgres
+Запускаем postgres...
+Запускаем PostgreSQL...
+PostgreSQL запущена!
+
+$ python scripts/cli.py status
+Статус баз данных:
+PostgreSQL: Не запущена
+
+$ python scripts/cli.py stop postgres
+Останавливаем postgres...
+Останавливаем PostgreSQL...
+PostgreSQL остановлена!
+```
