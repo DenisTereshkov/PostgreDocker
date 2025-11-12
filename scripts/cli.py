@@ -1,5 +1,26 @@
 import argparse
 
+from handlers import postgres, status
+
+
+def start_database(db_type):
+    """Запускает контейнер с базой данных"""
+    if db_type == 'postgres':
+        postgres.start()
+    # Когда будут БД, добавить сюда:
+    # elif db_type == 'mysql':
+    #     mysql.start()
+    else:
+        print(f"Неизвестный тип базы данных: {db_type}")
+
+
+def stop_database(db_type):
+    """Останавливает контейнер с базой данных"""
+    if db_type == 'postgres':
+        postgres.stop()
+    else:
+        print(f"Неизвестный тип базы данных: {db_type}")
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -37,48 +58,9 @@ def main():
         stop_database(args.db_type)
     elif args.command == 'status':
         print("Статус баз данных:")
-        check_status()
+        status.show()
     else:
         parser.print_help()
-
-
-def start_database(db_type):
-    """Запускает контейнер с базой данных"""
-    if db_type == 'postgres':
-        start_postgres()
-    # Когда будут БД, добавить сюда:
-    # elif db_type == 'mysql':
-    #     start_mysql()
-    else:
-        print(f"Неизвестный тип базы данных: {db_type}")
-
-
-def stop_database(db_type):
-    """Останавливает контейнер с базой данных"""
-    if db_type == 'postgres':
-        stop_postgres()
-    else:
-        print(f"Неизвестный тип базы данных: {db_type}")
-
-
-def start_postgres():
-    """Запускает PostgreSQL контейнер"""
-    print("Запускаем PostgreSQL...")
-    # TODO: добавить реальный запуск docker-compose
-    print("✅ PostgreSQL запущена!")
-
-
-def stop_postgres():
-    """Останавливает PostgreSQL контейнер"""
-    print("Останавливаем PostgreSQL...")
-    # TODO: добавить реальную остановку
-    print("✅ PostgreSQL остановлена!")
-
-
-def check_status():
-    """Показывает статус всех БД"""
-    print("PostgreSQL: Не запущена")
-    # TODO: добавить реальную проверку статуса
 
 
 if __name__ == '__main__':
